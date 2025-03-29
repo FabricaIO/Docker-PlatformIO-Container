@@ -98,15 +98,15 @@ docker run --rm \
 ## Keep Configuration
 If you want to keep the downloaded packages, etc. you can save the PlatformIO configuration outside of the container. You can do this by adding the following line to the docker run call:
 ```
--v `$HOME/.platformio`:/.platformio \
+-v `$HOME/.platformio`:/.platformio
 ```
 Alternatively you could use a data volume container to save the PlatformIO configuration. First create the data volume container
 ```
-docker run --name vc_platformio sglahn/vc_platformio:latest
+docker run --name vc_platformio ghcr.io/fabricaio/docker-platformio-core:master
 ```
 Then add the following line to the docker run call:
 ```
---volumes-from=vc_platformio \
+--volumes-from=vc_platformio
 ```
 
 
