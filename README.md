@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: docker://ghcr.io/fabricaio/docker-platformio-core:main
+      - uses: docker://ghcr.io/fabricaio/docker-platformio-core:master
         with:
           args: run
 ```
@@ -38,7 +38,7 @@ pipeline {
                 sh 'docker run --rm \
                     --mount type=bind,source="$(pwd)/wiring-blink",target=/workspace \
                     -u `id -u $USER`:`id -g $USER` \
-                    ghcr.io/fabricaio/docker-platformio-core:main \
+                    ghcr.io/fabricaio/docker-platformio-core:master \
                     run'
             }
         }
@@ -56,7 +56,7 @@ For convenience, the script checks if the host device /dev/ttyUSB0 is available 
 ## Step By Step
 Pull the image
 ```
-docker pull ghcr.io/fabricaio/docker-platformio-core:main
+docker pull ghcr.io/fabricaio/docker-platformio-core:master
 ```
 Run a Docker container
 ```
@@ -64,7 +64,7 @@ docker run --rm \
     --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
     -u `id -u $USER`:`id -g $USER` \
     --device=/dev/ttyUSB0 \
-    ghcr.io/fabricaio/docker-platformio-core:main \
+    ghcr.io/fabricaio/docker-platformio-core:master \
 ```
 With <PROJECT_DIR> as the directory containing your work, e.g. ~/Workspace/myproject/.
 
@@ -74,7 +74,7 @@ With <PROJECT_DIR> as the directory containing your work, e.g. ~/Workspace/mypro
 docker run --rm \
     --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
     -u `id -u $USER`:`id -g $USER` \
-    ghcr.io/fabricaio/docker-platformio-core:main \
+    ghcr.io/fabricaio/docker-platformio-core:master \
     init --board uno
 ```
 Compile a project:
@@ -83,7 +83,7 @@ docker run --rm \
     --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
     -u `id -u $USER`:`id -g $USER` \
     --device=/dev/ttyUSB0 \
-    ghcr.io/fabricaio/docker-platformio-core:main \
+    ghcr.io/fabricaio/docker-platformio-core:master \
     run
 ```
 Or upload your project to a board connected to the PC:
@@ -92,7 +92,7 @@ docker run --rm \
     --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
     -u `id -u $USER`:`id -g $USER` \
     --device=/dev/ttyUSB0 \
-    ghcr.io/fabricaio/docker-platformio-core:main \
+    ghcr.io/fabricaio/docker-platformio-core:master \
     run -t upload
 ```
 ## Keep Configuration
