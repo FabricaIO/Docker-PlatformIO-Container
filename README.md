@@ -1,5 +1,4 @@
 # Docker PlatformIO Core
-![Docker Pulls](https://img.shields.io/docker/pulls/sglahn/platformio-core.svg)
 
 This is a Dockerfile packaging [PlatformIO](http://platformio.org/) Core. The image contains the PlatformIO Command Line Interface for developing software for embedded devices and IoT projects. 
 To speedup development, this image has the platform espressif8266 already installed.
@@ -18,7 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: docker://sglahn/platformio-core:latest
+      - uses: docker://ghcr.io/fabricaio/docker-platformio-core:main
         with:
           args: run
 ```
@@ -39,7 +38,7 @@ pipeline {
                 sh 'docker run --rm \
                     --mount type=bind,source="$(pwd)/wiring-blink",target=/workspace \
                     -u `id -u $USER`:`id -g $USER` \
-                    sglahn/platformio-core:latest \
+                    ghcr.io/fabricaio/docker-platformio-core:main \
                     run'
             }
         }
@@ -57,15 +56,15 @@ For convenience, the script checks if the host device /dev/ttyUSB0 is available 
 ## Step By Step
 Pull the image
 ```
-docker pull sglahn/platformio-core:latest
+docker pull ghcr.io/fabricaio/docker-platformio-core:main
 ```
 Run a Docker container
 ```
 docker run --rm \
-    --mount type=bind,source="$(pwd)",target=/workspace \
+    --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
     -u `id -u $USER`:`id -g $USER` \
     --device=/dev/ttyUSB0 \
-    sglahn/platformio-core:latest \
+    ghcr.io/fabricaio/docker-platformio-core:main \
 ```
 With <PROJECT_DIR> as the directory containing your work, e.g. ~/Workspace/myproject/.
 
@@ -73,27 +72,27 @@ With <PROJECT_DIR> as the directory containing your work, e.g. ~/Workspace/mypro
  With this Docker image you can for example, create a new project:
 ```
 docker run --rm \
-    --mount type=bind,source="$(pwd)",target=/workspace \
+    --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
     -u `id -u $USER`:`id -g $USER` \
-    sglahn/platformio-core:latest \
+    ghcr.io/fabricaio/docker-platformio-core:main \
     init --board uno
 ```
 Compile a project:
 ```
 docker run --rm \
-    --mount type=bind,source="$(pwd)",target=/workspace \
+    --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
     -u `id -u $USER`:`id -g $USER` \
     --device=/dev/ttyUSB0 \
-    sglahn/platformio-core:latest \
+    ghcr.io/fabricaio/docker-platformio-core:main \
     run
 ```
 Or upload your project to a board connected to the PC:
 ```
 docker run --rm \
-    --mount type=bind,source="$(pwd)",target=/workspace \
+    --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
     -u `id -u $USER`:`id -g $USER` \
     --device=/dev/ttyUSB0 \
-    sglahn/platformio-core:latest \
+    ghcr.io/fabricaio/docker-platformio-core:main \
     run -t upload
 ```
 ## Keep Configuration
