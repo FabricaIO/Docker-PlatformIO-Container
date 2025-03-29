@@ -72,7 +72,7 @@ With <PROJECT_DIR> as the directory containing your work, e.g. ~/Workspace/mypro
  With this Docker image you can for example, create a new project:
 ```
 docker run --rm \
-    --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
+    -v <PROJECT_DIR>:/workspace \
     -u `id -u $USER`:`id -g $USER` \
     ghcr.io/fabricaio/docker-platformio-core:master \
     init --board uno
@@ -80,26 +80,29 @@ docker run --rm \
 Compile a project:
 ```
 docker run --rm \
-    --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
+    -v <PROJECT_DIR>:/workspace \
     -u `id -u $USER`:`id -g $USER` \
-    --device=/dev/ttyUSB0 \
     ghcr.io/fabricaio/docker-platformio-core:master \
     run
 ```
 Or upload your project to a board connected to the PC:
 ```
 docker run --rm \
-    --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
+    -v <PROJECT_DIR>:/workspace \
     -u `id -u $USER`:`id -g $USER` \
     --device=/dev/ttyUSB0 \
     ghcr.io/fabricaio/docker-platformio-core:master \
     run -t upload
 ```
+Replace `/dev/ttyUSB0` with the apporpriate serial interface for your device.
+
 ## Keep Configuration
 If you want to keep the downloaded packages, etc. you can save the PlatformIO configuration outside of the container. You can do this by adding the following line to the docker run call:
 ```
--v `$HOME/.platformio`:/.platformio
+-v <PACKAGE_DIR>:/.platformio
 ```
+Where `<PACKAGE_DIR>` is hte directory you want to use to store the configuration
+
 Alternatively you could use a data volume container to save the PlatformIO configuration. First create the data volume container
 ```
 docker run --name vc_platformio ghcr.io/fabricaio/docker-platformio-core:master
