@@ -1,7 +1,6 @@
 # Docker PlatformIO Container
 
-This is a Dockerfile packaging [PlatformIO](http://platformio.org/) Core. The image contains the PlatformIO Command Line Interface for developing software for embedded devices and IoT projects. 
-To speedup development, this image has the platform espressif8266 already installed.
+This is a Dockerfile packaging [PlatformIO](http://platformio.org/). The image contains the PlatformIO Command Line Interface for developing software for embedded devices and IoT projects. 
 
 ## Continuous Integration
 ### Github Actions
@@ -21,7 +20,7 @@ jobs:
         with:
           args: run
 ```
-This will trigger a build with platformio-core on every push in every branch.
+This will trigger a build with platformio  on every push in every branch.
 
 ### Jenkins Pipeline
 Here is a very simple [Jenkins pipeline](https://www.jenkins.io/doc/book/pipeline/) example:
@@ -36,7 +35,7 @@ pipeline {
                 git 'https://github.com/platformio/platformio-examples.git'
 
                 sh 'docker run --rm \
-                    --mount type=bind,source="$(pwd)/wiring-blink",target=/workspace \
+                    -v <PROJECT_DIR>:/workspace \
                     -u `id -u $USER`:`id -g $USER` \
                     ghcr.io/fabricaio/docker-platformio-container:master \
                     run'
@@ -61,7 +60,7 @@ docker pull ghcr.io/fabricaio/docker-platformio-container:master
 Run a Docker container
 ```
 docker run --rm \
-    --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
+    -v <PROJECT_DIR>:/workspace \
     -u `id -u $USER`:`id -g $USER` \
     --device=/dev/ttyUSB0 \
     ghcr.io/fabricaio/docker-platformio-container:master \
@@ -99,9 +98,11 @@ Replace `/dev/ttyUSB0` with the appropriate serial interface for your device.
 ## Keep Configuration
 If you want to keep the downloaded packages, etc. you can save the PlatformIO configuration outside of the container. You can do this by adding the following line to the docker run call:
 ```
--v <PACKAGE_DIR>:/.platformio
+-v <PACKAGES_DIR>:/.platformio
 ```
-Where `<PACKAGE_DIR>` is hte directory you want to use to store the configuration
+Where `<PACKAGES_DIR>` is the directory you want to use to store the configuration
+> [!CAUTION]
+> Biding to the `.platformio` folder seems to dramatically slow down the build process for some reason
 
 Alternatively you could use a data volume container to save the PlatformIO configuration. First create the data volume container
 ```
