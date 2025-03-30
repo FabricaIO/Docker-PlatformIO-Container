@@ -96,7 +96,7 @@ If you want to keep the downloaded packages, etc. you can save the PlatformIO co
 ```
 Where `<PACKAGES_DIR>` is the directory you want to use to store the configuration
 > [!CAUTION]
-> Biding to the `.platformio` folder seems to dramatically slow down the build process for some reason
+> Binding to the `.platformio` folder seems to dramatically slow down the build process for some reason
 
 Alternatively you could use a data volume container to save the PlatformIO configuration. First create the data volume container
 ```
