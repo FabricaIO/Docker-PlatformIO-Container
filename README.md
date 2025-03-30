@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: docker://ghcr.io/fabricaio/docker-platformio-core:master
+      - uses: docker://ghcr.io/fabricaio/docker-platformio-container:master
         with:
           args: run
 ```
@@ -38,7 +38,7 @@ pipeline {
                 sh 'docker run --rm \
                     --mount type=bind,source="$(pwd)/wiring-blink",target=/workspace \
                     -u `id -u $USER`:`id -g $USER` \
-                    ghcr.io/fabricaio/docker-platformio-core:master \
+                    ghcr.io/fabricaio/docker-platformio-container:master \
                     run'
             }
         }
@@ -56,7 +56,7 @@ For convenience, the script checks if the host device /dev/ttyUSB0 is available 
 ## Step By Step
 Pull the image
 ```
-docker pull ghcr.io/fabricaio/docker-platformio-core:master
+docker pull ghcr.io/fabricaio/docker-platformio-container:master
 ```
 Run a Docker container
 ```
@@ -64,7 +64,7 @@ docker run --rm \
     --mount type=bind,source=<PROJECT_DIR>,target=/workspace \
     -u `id -u $USER`:`id -g $USER` \
     --device=/dev/ttyUSB0 \
-    ghcr.io/fabricaio/docker-platformio-core:master \
+    ghcr.io/fabricaio/docker-platformio-container:master \
 ```
 With <PROJECT_DIR> as the directory containing your work, e.g. ~/Workspace/myproject/.
 
@@ -74,7 +74,7 @@ With <PROJECT_DIR> as the directory containing your work, e.g. ~/Workspace/mypro
 docker run --rm \
     -v <PROJECT_DIR>:/workspace \
     -u `id -u $USER`:`id -g $USER` \
-    ghcr.io/fabricaio/docker-platformio-core:master \
+    ghcr.io/fabricaio/docker-platformio-container:master \
     init --board uno
 ```
 Compile a project:
@@ -82,7 +82,7 @@ Compile a project:
 docker run --rm \
     -v <PROJECT_DIR>:/workspace \
     -u `id -u $USER`:`id -g $USER` \
-    ghcr.io/fabricaio/docker-platformio-core:master \
+    ghcr.io/fabricaio/docker-platformio-container:master \
     run
 ```
 Or upload your project to a board connected to the PC:
@@ -91,10 +91,10 @@ docker run --rm \
     -v <PROJECT_DIR>:/workspace \
     -u `id -u $USER`:`id -g $USER` \
     --device=/dev/ttyUSB0 \
-    ghcr.io/fabricaio/docker-platformio-core:master \
+    ghcr.io/fabricaio/docker-platformio-container:master \
     run -t upload
 ```
-Replace `/dev/ttyUSB0` with the apporpriate serial interface for your device.
+Replace `/dev/ttyUSB0` with the appropriate serial interface for your device.
 
 ## Keep Configuration
 If you want to keep the downloaded packages, etc. you can save the PlatformIO configuration outside of the container. You can do this by adding the following line to the docker run call:
@@ -105,7 +105,7 @@ Where `<PACKAGE_DIR>` is hte directory you want to use to store the configuratio
 
 Alternatively you could use a data volume container to save the PlatformIO configuration. First create the data volume container
 ```
-docker run --name vc_platformio ghcr.io/fabricaio/docker-platformio-core:master
+docker run --name vc_platformio ghcr.io/fabricaio/docker-platformio-container:master
 ```
 Then add the following line to the docker run call:
 ```
