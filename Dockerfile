@@ -5,7 +5,7 @@ ENV APP_VERSION="6.1.18" \
 
 LABEL app.name="${APP}" \
       app.version="${APP_VERSION}" \
-      maintainer="Sam Groveman <SamGroveman@fabrica-io.com>"
+      maintainer="Sam Groveman <Groveman@fabrica-io.com>"
 
 RUN pip install -U platformio==${APP_VERSION} && \
     mkdir -p /workspace && \
