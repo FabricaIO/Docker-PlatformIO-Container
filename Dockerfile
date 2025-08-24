@@ -13,8 +13,6 @@ RUN pip install -U platformio==${APP_VERSION} && \
     chmod a+rwx /.platformio && \
     apt update && apt install -y git && apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-USER 1001
-
 WORKDIR /workspace
 
 ENTRYPOINT ["platformio"] 
