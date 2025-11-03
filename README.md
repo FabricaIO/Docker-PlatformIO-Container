@@ -1,6 +1,6 @@
 # Docker PlatformIO Container
 
-This is a Dockerfile packaging [PlatformIO](http://platformio.org/). The image contains the PlatformIO Command Line Interface for developing software for embedded devices and IoT projects. 
+This is a Dockerfile packaging [PlatformIO](http://platformio.org/). The image contains the PlatformIO Command Line Interface ([PlatformIO Core](https://github.com/platformio/platformio-core)) for developing software for embedded devices and IoT projects. 
 
 ## Continuous Integration
 ### Github Actions
